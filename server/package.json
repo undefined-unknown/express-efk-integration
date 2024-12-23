@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Integration of Express Logs with ELK Stack A Comprehensive Guide",
+  "description": "Integration of Express Logs with EFK Stack A Comprehensive Guide",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/app.ts",
