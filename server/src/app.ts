@@ -7,6 +7,6 @@ const app = express();
 app.get("/", controllers.homeController);
 app.get("/post", controllers.postController);
 
-app.listen("8081", () => {
-  logger.info("server is running on port 8081");
+app.listen("8080", () => {
+  logger.info("server is running on port 8080");
 });

@@ -1,0 +1,38 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.15.0
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    build:
+      context: ./filebeat
+    container_name: efk-filebeat
+    command: filebeat -e --strict.perms=false
+    env_file:
+      - .env
+    volumes:
+      - ./express-server-logs:/app/logs
+    depends_on:
+      - elasticsearch
+      - kibana
+
+  server:
+    build:
+      context: ./server
+    container_name: efk-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./express-server-logs:/app/logs"
+    depends_on:
+      - elasticsearch
